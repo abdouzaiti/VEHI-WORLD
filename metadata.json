@@ -1,0 +1,6 @@
+{
+  "name": "Vehi World",
+  "description": "Plateforme premium de petites annonces de véhicules pour particuliers et professionnels.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
