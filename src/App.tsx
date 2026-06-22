@@ -24,9 +24,11 @@ import SellVehicleForm, { CreateAdPayload } from "./components/SellVehicleForm";
 import VehicleComparer from "./components/VehicleComparer";
 import MessageCenter from "./components/MessageCenter";
 import AdminDashboard from "./components/AdminDashboard";
+import MotionIntro from "./components/MotionIntro";
 
 export default function App() {
   // Navigation State
+  const [showIntro, setShowIntro] = React.useState<boolean>(true);
   const [currentView, setCurrentView] = React.useState<string>("acheter");
   const [selectedAd, setSelectedAd] = React.useState<Ad | null>(null);
 
@@ -476,6 +478,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900 select-none">
+      
+      {showIntro && <MotionIntro onComplete={() => setShowIntro(false)} />}
       
       {/* Sleek Adaptive Navbar component */}
       <Navbar
