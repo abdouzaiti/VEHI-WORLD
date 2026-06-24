@@ -477,7 +477,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900 select-none">
+    <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900 select-none pb-20 md:pb-0">
       
       {showIntro && <MotionIntro onComplete={() => setShowIntro(false)} />}
       

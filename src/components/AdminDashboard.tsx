@@ -109,7 +109,7 @@ export default function AdminDashboard({
       </div>
 
       {/* Dashboard Custom Tabs Navigation */}
-      <div className="flex border-b border-slate-200 gap-1 overflow-x-auto. pb-1">
+      <div className="flex border-b border-slate-200 gap-1 overflow-x-auto pb-1">
         <button
           onClick={() => setActiveTab("overview")}
           className={`px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-sm transition ${

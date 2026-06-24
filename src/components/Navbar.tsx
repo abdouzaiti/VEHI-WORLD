@@ -229,17 +229,122 @@ export default function Navbar({
               )}
             </div>
 
-            {/* Quick Action: Publish button on mobile */}
-            <button
-              id="mobile-publish-btn"
-              onClick={() => setCurrentView("vendre")}
-              className="md:hidden p-2 text-[#ED2939] hover:bg-red-50 rounded-sm transition"
-              title="Publier une annonce"
-            >
-              <PlusCircle className="h-6 w-6" />
-            </button>
+            {/* Quick Action: Publish button on mobile (hidden since bottom nav represents this) */}
           </div>
         </div>
+      </div>
+
+      {/* Premium Mobile Bottom Navigation Bar */}
+      <div 
+        id="mobile-bottom-nav" 
+        className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 z-[100] px-1 py-2 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] flex items-center justify-around select-none"
+      >
+        {/* Rechercher */}
+        <button
+          onClick={() => setCurrentView("acheter")}
+          className={`flex flex-col items-center justify-center flex-1 py-1 transition-all ${
+            currentView === "acheter" || currentView === "details"
+              ? "text-blue-700 scale-105 font-extrabold"
+              : "text-slate-500 active:scale-95"
+          }`}
+          style={{ touchAction: "manipulation" }}
+        >
+          <Car className="h-5 w-5 mb-0.5" />
+          <span className="text-[9px] font-bold uppercase tracking-wider">Rechercher</span>
+        </button>
+
+        {/* Favoris */}
+        <button
+          onClick={() => setCurrentView("favoris")}
+          className={`flex flex-col items-center justify-center flex-1 py-1 transition-all relative ${
+            currentView === "favoris"
+              ? "text-blue-700 scale-105 font-extrabold"
+              : "text-slate-500 active:scale-95"
+          }`}
+          style={{ touchAction: "manipulation" }}
+        >
+          <div className="relative">
+            <Heart className={`h-5 w-5 mb-0.5 ${currentView === "favoris" ? "fill-current" : ""}`} />
+            {favoritesCount > 0 && (
+              <span className="absolute -top-1.5 -right-2.5 px-1.5 py-0.5 text-[8px] font-extrabold leading-none text-white bg-red-650 bg-red-600 rounded-full">
+                {favoritesCount}
+              </span>
+            )}
+          </div>
+          <span className="text-[9px] font-bold uppercase tracking-wider">Favoris</span>
+        </button>
+
+        {/* Publier */}
+        <button
+          onClick={() => setCurrentView("vendre")}
+          className={`flex flex-col items-center justify-center flex-1 py-1 transition-all relative ${
+            currentView === "vendre"
+              ? "text-red-600 scale-105 font-extrabold"
+              : "text-slate-500 active:scale-95"
+          }`}
+          style={{ touchAction: "manipulation" }}
+        >
+          <PlusCircle className="h-5.5 w-5.5 mb-0.5 text-red-600" />
+          <span className="text-[9px] font-bold uppercase tracking-wider">Publier</span>
+        </button>
+
+        {/* Comparateur */}
+        <button
+          onClick={() => setCurrentView("comparaison")}
+          className={`flex flex-col items-center justify-center flex-1 py-1 transition-all relative ${
+            currentView === "comparaison"
+              ? "text-blue-700 scale-105 font-extrabold"
+              : "text-slate-500 active:scale-95"
+          }`}
+          style={{ touchAction: "manipulation" }}
+        >
+          <div className="relative">
+            <Scale className="h-5 w-5 mb-0.5" />
+            {comparisonCount > 0 && (
+              <span className="absolute -top-1.5 -right-2.5 px-1.5 py-0.5 text-[8px] font-extrabold leading-none text-white bg-blue-700 rounded-full">
+                {comparisonCount}
+              </span>
+            )}
+          </div>
+          <span className="text-[9px] font-bold uppercase tracking-wider">Comparer</span>
+        </button>
+
+        {/* Messagerie */}
+        <button
+          onClick={() => setCurrentView("messagerie")}
+          className={`flex flex-col items-center justify-center flex-1 py-1 transition-all relative ${
+            currentView === "messagerie"
+              ? "text-blue-700 scale-105 font-extrabold"
+              : "text-slate-500 active:scale-95"
+          }`}
+          style={{ touchAction: "manipulation" }}
+        >
+          <div className="relative">
+            <MessageSquare className="h-5 w-5 mb-0.5" />
+            {unreadMessagesCount > 0 && (
+              <span className="absolute -top-1.5 -right-2.5 px-1.5 py-0.5 text-[8px] font-extrabold leading-none text-white bg-red-600 rounded-full animate-pulse">
+                {unreadMessagesCount}
+              </span>
+            )}
+          </div>
+          <span className="text-[9px] font-bold uppercase tracking-wider">Messages</span>
+        </button>
+
+        {/* Admin Dashboard (if admin) */}
+        {currentUser.role === UserRole.ADMIN && (
+          <button
+            onClick={() => setCurrentView("admin")}
+            className={`flex flex-col items-center justify-center flex-1 py-1 transition-all relative ${
+              currentView === "admin"
+                ? "text-slate-900 scale-105 font-extrabold"
+                : "text-slate-500 active:scale-95"
+            }`}
+            style={{ touchAction: "manipulation" }}
+          >
+            <LayoutDashboard className="h-5 w-5 mb-0.5" />
+            <span className="text-[9px] font-bold uppercase tracking-wider">Admin</span>
+          </button>
+        )}
       </div>
     </header>
   );

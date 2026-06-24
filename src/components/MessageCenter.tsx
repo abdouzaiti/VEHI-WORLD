@@ -4,7 +4,7 @@
  */
 
 import React from "react";
-import { MessageSquare, Send, Calendar, CheckCheck, User, Sparkles } from "lucide-react";
+import { MessageSquare, Send, Calendar, CheckCheck, User, Sparkles, ArrowLeft } from "lucide-react";
 import { ChatRoom, ChatMessage, UserRole } from "../types";
 
 interface MessageCenterProps {
@@ -26,6 +26,7 @@ export default function MessageCenter({
 }: MessageCenterProps) {
   const [activeRoomIdx, setActiveRoomIdx] = React.useState<number>(0);
   const [typedMessage, setTypedMessage] = React.useState("");
+  const [mobileShowChat, setMobileShowChat] = React.useState<boolean>(false);
   const messagesEndRef = React.useRef<HTMLDivElement | null>(null);
 
   const selectedRoom = chatRooms[activeRoomIdx] || null;
@@ -71,9 +72,11 @@ export default function MessageCenter({
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 bg-white border border-slate-200 rounded-sm overflow-hidden shadow-sm h-[600px]" id="inbox-hub">
+    <div className="grid grid-cols-1 md:grid-cols-3 bg-white border border-slate-200 rounded-sm overflow-hidden shadow-sm h-[550px] sm:h-[600px]" id="inbox-hub">
       {/* Sidebar - Rooms List */}
-      <div className="col-span-1 border-r border-slate-200 flex flex-col h-full bg-slate-50/50">
+      <div className={`col-span-1 border-r border-slate-200 flex flex-col h-full bg-slate-50/50 ${
+        mobileShowChat ? "hidden md:flex" : "flex"
+      }`}>
         <div className="p-4 border-b border-slate-200 bg-white">
           <h2 className="font-sans font-black text-slate-950 text-base uppercase tracking-wider flex items-center space-x-1.5">
             <MessageSquare className="h-4.5 w-4.5 text-[#002395]" />
@@ -91,7 +94,10 @@ export default function MessageCenter({
             return (
               <div
                 key={room.id}
-                onClick={() => setActiveRoomIdx(idx)}
+                onClick={() => {
+                  setActiveRoomIdx(idx);
+                  setMobileShowChat(true);
+                }}
                 id={`room-item-${room.id}`}
                 className={`p-4 cursor-pointer transition flex items-center space-x-3 select-none ${
                    isSelected ? "bg-white border-l-4 border-blue-600 shadow-sm" : "hover:bg-slate-100/50"
@@ -128,15 +134,26 @@ export default function MessageCenter({
 
       {/* Main Conversation Window */}
       {selectedRoom ? (
-        <div className="col-span-2 flex flex-col h-full bg-slate-50">
+        <div className={`col-span-2 flex flex-col h-full bg-slate-50 ${
+          mobileShowChat ? "flex" : "hidden md:flex"
+        }`}>
           {/* Header - Active Room context info */}
-          <div className="p-4 border-b border-slate-200 bg-white flex items-center justify-between shadow-sm">
-            <div className="flex items-center space-x-3">
-              <img src={selectedRoom.adImage} className="h-10 w-10 rounded-sm object-cover border" referrerPolicy="no-referrer" />
-              <div>
-                <p className="text-[10px] uppercase font-bold text-slate-400">Discussion autour de :</p>
-                <h4 className="text-xs font-black text-slate-905 -mt-0.5 max-w-[280px] truncate">{selectedRoom.adTitle}</h4>
-                <p className="text-[10px] text-[#002395] font-bold">
+          <div className="p-3 sm:p-4 border-b border-slate-200 bg-white flex items-center justify-between shadow-sm">
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              {/* Back Arrow to list on mobile */}
+              <button
+                onClick={() => setMobileShowChat(false)}
+                className="md:hidden p-1.5 mr-1 text-slate-500 hover:text-slate-800 bg-slate-100 active:bg-slate-200 rounded-sm transition flex items-center justify-center shrink-0"
+                title="Retour aux salons"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </button>
+              
+              <img src={selectedRoom.adImage} className="h-8 w-8 sm:h-10 sm:w-10 rounded-sm object-cover border" referrerPolicy="no-referrer" />
+              <div className="min-w-0">
+                <p className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400">Discussion autour de :</p>
+                <h4 className="text-xs font-black text-slate-905 -mt-0.5 max-w-[150px] sm:max-w-[280px] truncate">{selectedRoom.adTitle}</h4>
+                <p className="text-[9px] sm:text-[10px] text-[#002395] font-bold truncate">
                   Interlocuteur : {currentUser.id === selectedRoom.sellerId ? selectedRoom.buyerName : selectedRoom.sellerName}
                 </p>
               </div>
