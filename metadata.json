@@ -1,6 +1,6 @@
 {
   "name": "Vehi World",
-  "description": "Plateforme premium de petites annonces de véhicules pour particuliers et professionnels.",
+  "description": "Plateforme premium d'achat et de vente de véhicules : voitures, camions, motos, jetskis et bateaux.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

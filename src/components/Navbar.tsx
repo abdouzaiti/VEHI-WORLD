@@ -36,7 +36,7 @@ export default function Navbar({
   const [showRoleSelector, setShowRoleSelector] = React.useState(false);
 
   return (
-    <header id="app-navbar" className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
+    <header id="app-navbar" className="sticky top-0 z-50 bg-white/75 backdrop-blur-md border-b border-slate-200/50 shadow-[0_2px_15px_rgba(0,0,0,0.02)]">
       {/* Top Banner: Tricolore Accent Strip */}
       <div className="h-1.5 w-full flex">
         <div className="bg-[#002395] h-full flex-1"></div>
