@@ -25,11 +25,9 @@ import SellVehicleForm, { CreateAdPayload } from "./components/SellVehicleForm";
 import VehicleComparer from "./components/VehicleComparer";
 import MessageCenter from "./components/MessageCenter";
 import AdminDashboard from "./components/AdminDashboard";
-import MotionIntro from "./components/MotionIntro";
 
 export default function App() {
   // Navigation State
-  const [showIntro, setShowIntro] = React.useState<boolean>(true);
   const [currentView, setCurrentView] = React.useState<string>("acheter");
   const [selectedAd, setSelectedAd] = React.useState<Ad | null>(null);
 
@@ -507,8 +505,6 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900 select-none pb-20 md:pb-0">
       
-      {showIntro && <MotionIntro onComplete={() => setShowIntro(false)} />}
-      
       {/* Sleek Adaptive Navbar component */}
       <Navbar
         currentView={currentView}
@@ -704,7 +700,7 @@ export default function App() {
       )}
 
       {/* Main Body Scroller content */}
-      <main className="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-28 md:py-8">
         
         {/* VIEW 1: Buyer Search & Categories Grid feed */}
         {currentView === "acheter" && (

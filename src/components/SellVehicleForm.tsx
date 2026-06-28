@@ -205,7 +205,7 @@ export default function SellVehicleForm({ currentUser, onPublish }: SellVehicleF
   return (
     <div id="publish-flow-card" className="max-w-4xl mx-auto bg-white border border-slate-200 rounded-sm p-4 sm:p-8 shadow-md">
       {/* Interactive horizontal indicator */}
-      <div className="flex items-center justify-between mb-8 border-b border-slate-100 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 border-b border-slate-100 pb-5 gap-4">
         <div className="flex items-center space-x-3">
           <div className="p-3 bg-red-50 text-[#ED2939] rounded-sm">
             <Upload className="h-6 w-6" id="wizard-icon" />
@@ -579,6 +579,9 @@ export default function SellVehicleForm({ currentUser, onPublish }: SellVehicleF
             <p className="text-xs text-slate-500 font-medium">
               Vehi World propose soit un paiement à l'unité, soit un abonnement récurrent pour publier plus et à des tarifs avantageux.
             </p>
+            <div className="bg-blue-50/50 border border-blue-150 rounded-xl p-3 text-left max-w-lg mx-auto text-[10px] text-blue-800 leading-normal">
+              🛡️ <strong>Charte de Modération Humaine :</strong> Toutes les annonces déposées sur notre plateforme nationale font l'objet d'une vérification de conformité administrative sous 12 heures ouvrées pour lutter contre la fraude et les fausses immatriculations.
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -818,8 +821,14 @@ export default function SellVehicleForm({ currentUser, onPublish }: SellVehicleF
           </div>
 
           {/* Secure check message */}
-          <div className="text-[10px] text-center text-slate-450 border-t border-slate-100 pt-4">
-            🔒 Vos informations de payement sont cryptées via le système certifié PCI-DSS.
+          <div className="text-[10px] text-center text-slate-450 border-t border-slate-100 pt-4 space-y-2">
+            <p>🔒 Vos informations de payement sont cryptées via le système certifié PCI-DSS.</p>
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[9px] text-slate-400 font-medium">
+              <span>✓ Protocole 3D Secure</span>
+              <span>✓ Serveurs sécurisés en France</span>
+              <span>✓ Facturation instantanée par e-mail</span>
+              <span>✓ Support d'assistance gratuit</span>
+            </div>
           </div>
 
           {/* Buttons Navigation */}
