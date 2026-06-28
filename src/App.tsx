@@ -499,7 +499,7 @@ export default function App() {
 
       {/* FULL-WIDTH Entrance Hero Section directly under navbar (no margins, goes edge-to-edge of the browser screen) */}
       {currentView === "acheter" && !selectedAd && (
-        <div id="section-hero-cinematic" className="relative border-b border-slate-250 overflow-hidden flex flex-col justify-between w-full md:aspect-[16/9] min-h-[550px] md:min-h-0 group bg-slate-900">
+        <div id="section-hero-cinematic" className="relative border-b border-slate-200/50 overflow-hidden flex flex-col justify-center w-full min-h-[480px] sm:min-h-[580px] py-10 sm:py-16 md:py-24 bg-slate-950 group">
           {/* Background Image with layered premium gradient overlay */}
           <div className="absolute inset-0 z-0 transition-transform duration-700 group-hover:scale-105">
             <img
@@ -508,32 +508,37 @@ export default function App() {
               className="w-full h-full object-cover object-center"
               referrerPolicy="no-referrer"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/20 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/40 to-transparent"></div>
           </div>
 
           {/* Centered inner content element to match alignment with max-w-7xl */}
-          <div className="z-10 relative max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 md:pt-16 pb-6 sm:pb-10 flex flex-col justify-between h-full flex-grow">
+          <div className="z-10 relative max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8 sm:gap-12">
             
             {/* Top Section Details */}
-            <div className="space-y-1 sm:space-y-3 pb-6 md:pb-0">
-              <h1 className="font-sans font-extrabold text-lg sm:text-3xl md:text-5xl text-white tracking-tight leading-tight uppercase">
-                <span className="text-[#002395] block">Achetez votre</span>
-                <span className="block mt-1 sm:mt-2">
-                  <span className="text-[#002395]">voiture en</span> <span className="text-[#C8102E]">France</span>
+            <div className="space-y-3 sm:space-y-4">
+              <h1 className="font-sans font-extrabold text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-none uppercase drop-shadow-md">
+                <span className="block text-slate-100">Trouvez votre</span>
+                <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-slate-50 to-red-400">
+                  prochain véhicule
                 </span>
               </h1>
-              <p className="text-[10px] sm:text-xs md:text-sm text-slate-200 font-medium font-sans max-w-sm sm:max-w-xl leading-relaxed">
-                <span className="block">Des voitures de qualité, au meilleur prix.</span>
-                <span className="block mt-1">Trouvez la voiture qui vous correspond.</span>
+              <p className="text-xs sm:text-sm md:text-base text-slate-300 font-medium font-sans max-w-sm sm:max-w-2xl leading-relaxed">
+                Explorez des milliers d'annonces de professionnels et particuliers à travers la France : 
+                <span className="text-blue-400 font-bold"> Voitures</span>, 
+                <span className="text-slate-100 font-bold"> Motos</span>, 
+                <span className="text-red-400 font-bold"> Camions</span>, 
+                <span className="text-blue-400 font-bold"> Utilitaires</span> et 
+                <span className="text-slate-100 font-bold"> Bateaux</span>. 
+                Profitez de notre paiement 100% sécurisé.
               </p>
             </div>
 
             {/* Bottom Left: Compact Quick Filters Form in WHITE */}
             <div className="w-full max-w-3xl">
-              <div id="filter-panel" className="bg-white border border-slate-200 p-3 sm:p-5 rounded-sm shadow-2xl text-slate-900">
-                <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
-                  <span className="text-[10px] sm:text-xs font-sans font-black tracking-wider text-[#002395] flex items-center gap-1.5 uppercase">
+              <div id="filter-panel" className="bg-white border border-slate-250 p-4 sm:p-6 rounded-2xl shadow-2xl text-slate-900">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-2.5 mb-3.5">
+                  <span className="text-[10px] sm:text-xs font-sans font-black tracking-wider text-[#2563EB] flex items-center gap-1.5 uppercase">
                     🔎 RECHERCHE RAPIDE
                   </span>
                   <button
