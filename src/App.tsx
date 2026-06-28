@@ -931,16 +931,28 @@ export default function App() {
       </main>
 
       {/* Corporate offset French footer */}
-      <footer className="bg-slate-900 text-slate-400 py-8 border-t border-slate-850 mt-12 text-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <div className="flex items-center space-x-2">
-            <div className="bg-[#002395] px-1 py-0.5 rounded text-white font-extrabold text-[10px]">V</div>
-            <p className="font-bold text-white tracking-widest uppercase">
-              VEHI WORLD <span className="text-[#ED2939]">.</span>
-            </p>
+      <footer className="bg-slate-900 text-slate-400 py-10 border-t border-slate-800 mt-12 text-xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-6">
+          <div className="flex items-center space-x-4">
+            <img 
+              src="/logo.png" 
+              alt="Vehi World Logo" 
+              className="h-12 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.05)]"
+              referrerPolicy="no-referrer"
+            />
+
+            <div>
+              <p className="font-extrabold text-white tracking-[0.25em] text-sm uppercase">
+                VEHI WORLD<span className="text-[#ED2939]">.</span>
+              </p>
+              <p className="text-[10px] text-slate-500 font-mono tracking-wider uppercase">
+                PRESTIGE VÉHICULES
+              </p>
+            </div>
           </div>
-          <p className="text-slate-500 font-medium">
-            © 2026 Vehi World. Tous droits réservés. Hébergé en France. Simulation Stripe & PayPal.
+          <p className="text-slate-500 font-medium text-center sm:text-right max-w-md leading-relaxed">
+            © 2026 Vehi World. Tous droits réservés. Hébergé en France. <br className="hidden sm:inline" />
+            La plateforme nationale de référence pour l'achat et la vente de véhicules d'exception.
           </p>
         </div>
       </footer>
