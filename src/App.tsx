@@ -62,6 +62,27 @@ export default function App() {
   // Current session simulation: default Jean Dupont (Particulier)
   const [currentUser, setCurrentUser] = React.useState<User>(() => users[0]);
 
+  // Premium Toast Notification System
+  const [toast, setToast] = React.useState<{ message: string; type: "success" | "info" | "error" } | null>(null);
+
+  const showToast = React.useCallback((message: string, type: "success" | "info" | "error" = "success") => {
+    setToast({ message, type });
+  }, []);
+
+  React.useEffect(() => {
+    (window as any).showAppToast = showToast;
+    return () => {
+      delete (window as any).showAppToast;
+    };
+  }, [showToast]);
+
+  React.useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(null), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
+
   // Favorites list state (Stored by IDs)
   const [favorites, setFavorites] = React.useState<string[]>(() => {
     const saved = localStorage.getItem("veloce_favs");
@@ -134,12 +155,12 @@ export default function App() {
     const matched = users.find((u) => u.role === role);
     if (matched) {
       setCurrentUser(matched);
-      alert(`Profil changé ! Vous êtes maintenant connecté en tant que ${matched.name} (${role}).`);
+      showToast(`Profil changé ! Connecté en tant que ${matched.name} (${role === UserRole.ADMIN ? "Administrateur" : role === UserRole.PROFESSIONNEL ? "Professionnel" : "Particulier"}).`, "success");
     }
   };
 
   const handleLogout = () => {
-    alert("Déconnexion simulée. Vous repassez sur le compte Particulier.");
+    showToast("Déconnexion simulée. Retour au compte Particulier.", "info");
     const unmatched = users.find((u) => u.role === UserRole.PARTICULIER);
     if (unmatched) setCurrentUser(unmatched);
   };
@@ -147,9 +168,12 @@ export default function App() {
   // Favorites toggle controller
   const handleToggleFavorite = (adId: string) => {
     setFavorites((prev) => {
-      if (prev.includes(adId)) {
+      const isFav = prev.includes(adId);
+      if (isFav) {
+        showToast("Annonce retirée des favoris.", "info");
         return prev.filter((id) => id !== adId);
       } else {
+        showToast("Annonce ajoutée aux favoris ! ❤️", "success");
         return [...prev, adId];
       }
     });
@@ -158,13 +182,16 @@ export default function App() {
   // Comparison toggle controller
   const handleToggleComparison = (adId: string) => {
     setComparisonList((prev) => {
-      if (prev.includes(adId)) {
+      const isIncluded = prev.includes(adId);
+      if (isIncluded) {
+        showToast("Véhicule retiré du comparateur.", "info");
         return prev.filter((id) => id !== adId);
       } else {
         if (prev.length >= 3) {
-          alert("Vous pouvez comparer un maximum de 3 véhicules simultanément.");
+          showToast("Vous pouvez comparer un maximum de 3 véhicules simultanément.", "error");
           return prev;
         }
+        showToast("Véhicule ajouté au comparateur ! ⚖️", "success");
         return [...prev, adId];
       }
     });
@@ -365,13 +392,13 @@ export default function App() {
     setAds((prev) =>
       prev.map((ad) => (ad.id === adId ? { ...ad, status: "approved" } : ad))
     );
-    alert("Annonce approuvée avec succès ! Elle est désormais active en ligne.");
+    showToast("Annonce approuvée avec succès ! Elle est désormais active en ligne.", "success");
   };
 
   // 2. Reject/Remove Ad
   const handleRejectAd = (adId: string) => {
     setAds((prev) => prev.filter((ad) => ad.id !== adId));
-    alert("Annonce rejetée et retirée de la file d'attente de modération.");
+    showToast("Annonce rejetée et retirée de la file d'attente de modération.", "info");
   };
 
   // 3. Resolve fraud complaints
@@ -379,7 +406,7 @@ export default function App() {
     setReports((prev) =>
       prev.map((r) => (r.id === reportId ? { ...r, status: "resolved" } : r))
     );
-    alert("Le signalement de fraude a été marqué résolu et archivé.");
+    showToast("Le signalement de fraude a été marqué résolu et archivé.", "success");
   };
 
   // Search filtration routine matching current filters
@@ -921,6 +948,36 @@ export default function App() {
           </p>
         </div>
       </footer>
+
+      {/* Modern Floating Responsive Toast Notification Above Bottom Nav */}
+      {toast && (
+        <div 
+          id="app-global-toast"
+          className={`fixed bottom-24 md:bottom-6 right-4 z-[9999] max-w-sm w-[calc(100%-2rem)] p-4 rounded-xl shadow-2xl border flex items-start gap-3 animate-in fade-in slide-in-from-bottom-5 duration-300 ${
+            toast.type === "success" 
+              ? "bg-emerald-50 border-emerald-200 text-emerald-900" 
+              : toast.type === "error" 
+              ? "bg-rose-50 border-rose-200 text-rose-900" 
+              : "bg-blue-50 border-blue-200 text-blue-900"
+          }`}
+        >
+          <div className="text-lg shrink-0 select-none">
+            {toast.type === "success" ? "✅" : toast.type === "error" ? "❌" : "⚡"}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-black font-sans uppercase tracking-wider">
+              {toast.type === "success" ? "Notification" : toast.type === "error" ? "Alerte" : "Info"}
+            </p>
+            <p className="text-xs font-medium mt-0.5 opacity-90 leading-relaxed break-words">{toast.message}</p>
+          </div>
+          <button 
+            onClick={() => setToast(null)}
+            className="text-slate-400 hover:text-slate-600 font-bold text-xs select-none shrink-0"
+          >
+            ✕
+          </button>
+        </div>
+      )}
     </div>
   );
 }

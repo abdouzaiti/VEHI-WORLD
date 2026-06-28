@@ -111,7 +111,9 @@ export default function SellVehicleForm({ currentUser, onPublish }: SellVehicleF
     ];
 
     if (uploadedPhotos.length >= 20) {
-      alert("Limite maximale de 20 photos atteinte.");
+      if ((window as any).showAppToast) {
+        (window as any).showAppToast("Limite maximale de 20 photos atteinte.", "error");
+      }
       return;
     }
 
@@ -158,7 +160,9 @@ export default function SellVehicleForm({ currentUser, onPublish }: SellVehicleF
   const handleSubmitInitialForm = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim() || !brand.trim() || !model.trim() || !price || !year || !mileage) {
-      alert("Veuillez remplir tous les champs obligatoires marqués d'un astérisque.");
+      if ((window as any).showAppToast) {
+        (window as any).showAppToast("Veuillez remplir tous les champs obligatoires marqués d'un astérisque.", "error");
+      }
       return;
     }
     // Proceed to monetization strategy screen
@@ -199,7 +203,7 @@ export default function SellVehicleForm({ currentUser, onPublish }: SellVehicleF
   };
 
   return (
-    <div id="publish-flow-card" className="max-w-4xl mx-auto bg-white border border-slate-200 rounded-sm p-6 sm:p-8 shadow-md">
+    <div id="publish-flow-card" className="max-w-4xl mx-auto bg-white border border-slate-200 rounded-sm p-4 sm:p-8 shadow-md">
       {/* Interactive horizontal indicator */}
       <div className="flex items-center justify-between mb-8 border-b border-slate-100 pb-5">
         <div className="flex items-center space-x-3">
@@ -430,7 +434,7 @@ export default function SellVehicleForm({ currentUser, onPublish }: SellVehicleF
 
             {/* Uploaded Photos Grid previews */}
             {uploadedPhotos.length > 0 && (
-              <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-3 mt-4" id="uploaded-thumbnails">
+              <div className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 mt-4" id="uploaded-thumbnails">
                 {uploadedPhotos.map((photo, idx) => (
                   <div key={idx} className="relative aspect-square rounded-sm overflow-hidden border border-slate-200 group">
                     <img src={photo} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
@@ -510,25 +514,25 @@ export default function SellVehicleForm({ currentUser, onPublish }: SellVehicleF
             <label className="block text-xs font-bold text-slate-705 uppercase tracking-wider mb-2">
               Caractéristiques techniques spécifiques (facultatif)
             </label>
-            <div className="flex gap-2 mb-4">
+            <div className="flex flex-col sm:flex-row gap-2 mb-4">
               <input
                 type="text"
                 value={specKey}
                 onChange={(e) => setSpecKey(e.target.value)}
                 placeholder="Ex : Puissance fiscale (CV)"
-                className="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm"
+                className="flex-1 w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm"
               />
               <input
                 type="text"
                 value={specVal}
                 onChange={(e) => setSpecVal(e.target.value)}
                 placeholder="Ex : 8 CV"
-                className="flex-1 px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm"
+                className="flex-1 w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm"
               />
               <button
                 type="button"
                 onClick={addSpecification}
-                className="bg-[#002395] hover:bg-blue-800 text-white px-4 py-2 rounded-sm text-sm font-semibold cursor-pointer"
+                className="bg-[#002395] hover:bg-blue-800 text-white px-4 py-2 rounded-sm text-sm font-semibold cursor-pointer whitespace-nowrap"
               >
                 Ajouter
               </button>
@@ -730,16 +734,16 @@ export default function SellVehicleForm({ currentUser, onPublish }: SellVehicleF
           </div>
 
           {/* Navigation */}
-          <div className="flex justify-between pt-4 border-t border-slate-100">
+          <div className="flex flex-col-reverse sm:flex-row gap-3 justify-between pt-4 border-t border-slate-100">
             <button
               onClick={() => setPublishStep("form")}
-              className="px-5 py-2.5 border border-slate-200 text-slate-600 rounded-xl text-sm font-semibold hover:bg-slate-5"
+              className="px-5 py-2.5 border border-slate-200 text-slate-600 rounded-xl text-sm font-semibold hover:bg-slate-5 w-full sm:w-auto"
             >
               Retour
             </button>
             <button
               onClick={() => setPublishStep("checkout")}
-              className="px-6 py-2.5 bg-[#002395] text-white text-sm font-bold rounded-xl hover:bg-blue-800 cursor-pointer flex items-center space-x-2"
+              className="px-6 py-2.5 bg-[#002395] text-white text-sm font-bold rounded-xl hover:bg-blue-800 cursor-pointer flex items-center justify-center space-x-2 w-full sm:w-auto"
             >
               <span>Continuer vers le Paiement sécurisé</span>
               <span>({calculateTotal()} €) ➔</span>
@@ -819,18 +823,18 @@ export default function SellVehicleForm({ currentUser, onPublish }: SellVehicleF
           </div>
 
           {/* Buttons Navigation */}
-          <div className="flex justify-between">
+          <div className="flex flex-col-reverse sm:flex-row gap-3 justify-between">
             <button
               type="button"
               onClick={() => setPublishStep("pricing")}
-              className="px-5 py-2 border border-slate-200 text-slate-600 rounded-sm text-sm"
+              className="px-5 py-2 border border-slate-200 text-slate-600 rounded-sm text-sm w-full sm:w-auto"
             >
               Retour formule
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-6 py-2.5 bg-[#ED2939] hover:bg-red-700 text-white font-bold text-sm rounded-sm transition flex items-center space-x-2"
+              className="px-6 py-2.5 bg-[#ED2939] hover:bg-red-700 text-white font-bold text-sm rounded-sm transition flex items-center justify-center space-x-2 w-full sm:w-auto text-center"
             >
               {isSubmitting ? (
                 <span>Validation en cours...</span>

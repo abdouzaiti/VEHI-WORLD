@@ -66,7 +66,9 @@ export default function AdDetails({
     onReportAd(reportText);
     setReportText("");
     setShowReportModal(false);
-    alert("Merci d'avoir signalé cette annonce. Notre équipe administrative va enquêter sous 24h.");
+    if ((window as any).showAppToast) {
+      (window as any).showAppToast("Merci d'avoir signalé cette annonce. Notre équipe administrative va l'examiner sous 24h.", "info");
+    }
   };
 
   const handleSimulatedPayment = (e: React.FormEvent) => {
