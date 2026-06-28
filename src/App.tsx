@@ -774,7 +774,7 @@ export default function App() {
               )}
 
               {/* High-end Trust Badges row - Matched directly to the provided design image */}
-              <div className="mt-12 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 shadow-sm select-none" id="trust-markers-banner">
+              <div className="mt-12 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-3 gap-6 shadow-sm select-none" id="trust-markers-banner">
                 <div className="flex items-center space-x-4">
                   <div className="p-3 bg-blue-50 text-[#2563EB] rounded-full shrink-0">
                     <ShieldCheck className="h-6 w-6" />
@@ -792,16 +792,6 @@ export default function App() {
                   <div>
                     <h4 className="text-sm font-extrabold text-slate-900 uppercase tracking-wide">Paiement sécurisé</h4>
                     <p className="text-xs text-slate-500 font-bold mt-0.5 leading-relaxed">Transaction 100% sécurisée.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-4">
-                  <div className="p-3 bg-blue-50 text-[#2563EB] rounded-full shrink-0">
-                    <Award className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-extrabold text-slate-900 uppercase tracking-wide">Garantie incluse</h4>
-                    <p className="text-xs text-slate-500 font-bold mt-0.5 leading-relaxed">Jusqu'à 24 mois de garantie.</p>
                   </div>
                 </div>
 
